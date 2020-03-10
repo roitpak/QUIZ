@@ -1,2 +1,21 @@
-export const LOGIN_USER = require('./user.png'); 
-export const CURVE = require('./curve.png'); 
+export const LOKSEWA = require("./loksewa.png");
+export const LOGIN_USER = require("./user.png");
+export const MAIL = require("./mail.png");
+export const KEY = require("./key.png");
+export const NEXT = require("./next.png");
+export const TICK = require("./tick.png");
+export const HOUSE = require("./house.png");
+export const BELL = require("./bell.png");
+export const PPT_ICON = require("./ppt.png");
+export const REMOVE = require("./remove.png");
+
+export const SPLASH = require("./splash123.png");
+export const CURVE2 = require("./curve2.png");
+export const NAME_IMAGE = require("./name.png");
+export const PIN = require("./pin.png");
+export const INSPECTION = require("./inspection.png");
+export const JOURNEY = require("./journey.png");
+export const PHOTO_CAMERA = require("./photoCamera.png");
+export const STOCK = require("./stock.png");
+export const UPLOAD = require("./upload.png");
+export const CAMERA = require("./camera.png");

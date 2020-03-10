@@ -1,15 +1,15 @@
 import React from "react";
 import { ActivityIndicator, View, AsyncStorage } from "react-native";
 import { Provider } from "react-redux";
-import AppNavigator from "./src/navigation/AppNavigator";
 import { createStore, applyMiddleware } from "redux";
-import reducers from "./src/reducers";
+import reducers from "./src/redux/reducers";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import thunk from "redux-thunk";
+import MainScreen from "./src/views/MainScreen";
 
 const persistConfig = {
-  key: "version0",
+  key: "1",
   storage: AsyncStorage
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -30,7 +30,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={this.renderLoading()} persistor={persistor}>
-          <AppNavigator />
+          <MainScreen />
         </PersistGate>
       </Provider>
     );

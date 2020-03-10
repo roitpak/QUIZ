@@ -17,10 +17,9 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import { connect } from "react-redux";
-import HeaderSmall from "./common/HeaderSmall";
 // import { CURVE_LOGIN, LAXMI, MAIL, KEY, CURVE_HEADER } from "../../res/image";
 
-class IntroMessageScreen extends Component {
+class DashboardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -41,11 +40,6 @@ class IntroMessageScreen extends Component {
     // const role = navigation.getParam('role', 'No role found');
     return (
       <View style={styles.container} behavior="padding">
-        <HeaderSmall
-          name={"Home"}
-          left={true}
-          goBack={() => this.props.navigation.goBack()}
-        />
         {/* <Image
           style={styles.curveImage}
           source={CURVE_HEADER}
@@ -82,4 +76,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ main }) => {
   return {};
 };
-export default connect(mapStateToProps, {})(IntroMessageScreen);
+export default connect(mapStateToProps, {})(DashboardScreen);
