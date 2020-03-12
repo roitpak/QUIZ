@@ -6,7 +6,10 @@ import {
   Modal,
   ActivityIndicator,
   TouchableOpacity,
-  Alert
+  Alert,
+  Image,
+  Button,
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -23,7 +26,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList
+  DrawerItemList,
+  DrawerItem
 } from "@react-navigation/drawer";
 import {
   NavigationContainer,
@@ -38,6 +42,10 @@ import ForgotPasswordScreen from "./Login/ForgotPasswordScreen";
 import TestScreen from "./Test/TestScreen";
 import DashboardScreen from "./Dashboard/DashboardScreen";
 import { navigationRef } from "../navigation/RootNavigation";
+import { CAMERA } from "../res/image";
+import RootNavigation from "../navigation/RootNavigation";
+import { useSafeArea } from "react-native-safe-area-context";
+import CustomDrawerContent from "../components/Dashboard/CustomDrawerContent";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -49,13 +57,14 @@ const MyTheme = {
     background: "white"
   }
 };
-
-function CustomDrawerContent(props) {
+function DrawerScreens() {
   return (
-    <DrawerContentScrollView {...props}>
-      <Text>Hello world</Text>
-      <DrawerItemList {...props} />
-    </DrawerContentScrollView>
+    <Drawer.Navigator
+      initialRouteName="Dashboard"
+      drawerContent={props => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen name="Dashboard" component={DashboardScreen} />
+    </Drawer.Navigator>
   );
 }
 
@@ -85,12 +94,10 @@ class Login extends Component {
       );
     } else {
       return (
-        <Drawer.Navigator
-          initialRouteName="DashboardScreen"
-          drawerContent={props => <CustomDrawerContent {...props} />}
-        >
-          <Drawer.Screen name="DashboardScreen" component={DashboardScreen} />
-        </Drawer.Navigator>
+        <Stack.Navigator initialRouteName="Drawer" headerMode="none">
+          {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
+          <Stack.Screen name="Drawer" component={DrawerScreens} />
+        </Stack.Navigator>
       );
     }
     //  else {
