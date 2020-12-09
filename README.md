@@ -7,7 +7,9 @@ run command
 npm install -g expo-cli
 
 cd QUIZ
+
 npm install 
+
 expo start
 
 this will start a packager and generate QR code.
