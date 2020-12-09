@@ -11,6 +11,7 @@ import {
   SET_LOADING_MESSAGE,
   SET_LOGGED_IN_TRUE,
   SET_NEW_USERS,
+  LOG_USER_OUT,
 } from "./types";
 import axios from "axios";
 import * as RootNavigation from "../../navigation/RootNavigation";
@@ -56,6 +57,11 @@ export const changeRepeatPasswordRegister = (value) => {
 export const setLoadingFalse = () => {
   return {
     type: SET_LOADING_FALSE,
+  };
+};
+export const logOut = () => {
+  return {
+    type: LOG_USER_OUT,
   };
 };
 

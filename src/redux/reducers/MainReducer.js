@@ -12,6 +12,7 @@ import {
   SET_LOGGED_IN_TRUE,
   LOG_USER_OUT,
   SET_NEW_USERS,
+  LOG_OUT,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -98,6 +99,13 @@ export default (state = INITIAL_STATE, action) => {
         loggedIn: true,
         loading: false,
         loadingMessage: "",
+        username: "",
+        password: "",
+
+        fullNameRegister: "",
+        mobileNumberRegister: "",
+        passwordRegister: "",
+        repeatPasswordRegister: "",
       };
     case LOG_USER_OUT:
       return {
@@ -105,11 +113,30 @@ export default (state = INITIAL_STATE, action) => {
         loggedIn: false,
         loading: false,
         loadingMessage: "",
+        username: "",
+        password: "",
+
+        fullNameRegister: "",
+        mobileNumberRegister: "",
+        passwordRegister: "",
+        repeatPasswordRegister: "",
       };
     case SET_NEW_USERS:
       return {
         ...state,
         users: action.payload,
+        username: "",
+        password: "",
+
+        fullNameRegister: "",
+        mobileNumberRegister: "",
+        passwordRegister: "",
+        repeatPasswordRegister: "",
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        logg,
       };
     default:
       return state;

@@ -17,7 +17,8 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { connect } from "react-redux";
-import { showAlertPopUp } from "../../redux/actions";
+import { logOut, showAlertPopUp } from "../../redux/actions";
+import { HOUSE } from "../../res/image";
 import { Colors } from "../../res/strings";
 import questions from "../../res/strings/questions.json";
 import Answers from "./Answers";
@@ -182,6 +183,14 @@ class DashboardScreen extends Component {
         behavior="padding"
         showsVerticalScrollIndicator={false}
       >
+        <TouchableOpacity
+          onPress={() => {
+            this.props.logOut();
+          }}
+          style={styles.logout}
+        >
+          <Text style={{ fontSize: 15 }}>LOGOUT</Text>
+        </TouchableOpacity>
         <Text style={styles.title}>ALPHA BETA THETA QUIZ</Text>
 
         {this._returnQuestion()}
@@ -196,6 +205,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 20,
   },
+  logout: {
+    margin: 10,
+    padding: 5,
+    alignSelf: "flex-end",
+  },
   curveImage: {
     position: "absolute",
     left: -wp("10%"),
@@ -208,7 +222,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     color: Colors.app_color,
-    marginTop: 40,
+    marginTop: 20,
   },
   question: {
     fontSize: 20,
@@ -239,4 +253,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ main }) => {
   return {};
 };
-export default connect(mapStateToProps, { showAlertPopUp })(DashboardScreen);
+export default connect(mapStateToProps, { showAlertPopUp, logOut })(
+  DashboardScreen
+);

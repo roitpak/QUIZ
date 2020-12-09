@@ -16,3 +16,4 @@ export const SET_LOGGED_IN_TRUE = "SET_LOGGED_IN_TRUE";
 export const LOG_USER_OUT = "LOG_USER_OUT";
 
 export const SET_NEW_USERS = "SET_NEW_USERS";
+
