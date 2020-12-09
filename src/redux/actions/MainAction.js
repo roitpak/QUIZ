@@ -9,57 +9,58 @@ import {
   SHOW_ALERT_POP_UP,
   HIDE_ALERT_POP_UP,
   SET_LOADING_MESSAGE,
-  SET_LOGGED_IN_TRUE
+  SET_LOGGED_IN_TRUE,
+  SET_NEW_USERS,
 } from "./types";
 import axios from "axios";
 import * as RootNavigation from "../../navigation/RootNavigation";
 
-export const changeUsername = username => {
+export const changeUsername = (username) => {
   return {
     type: USER_NAME_CHANGED,
-    payload: username
+    payload: username,
   };
 };
-export const changePassword = password => {
+export const changePassword = (password) => {
   return {
     type: USER_PASSWORD_CHANGED,
-    payload: password
+    payload: password,
   };
 };
 
-export const changeFullNameRegister = value => {
+export const changeFullNameRegister = (value) => {
   return {
     type: FULL_NAME_REGISTER_CHANGED,
-    payload: value
+    payload: value,
   };
 };
-export const changeNumberRegister = value => {
+export const changeNumberRegister = (value) => {
   return {
     type: MOBILE_NUMBER_REGISTER_CHANGED,
-    payload: value
+    payload: value,
   };
 };
-export const changePasswordRegister = value => {
+export const changePasswordRegister = (value) => {
   return {
     type: PASSWORD_REGISTER_CHANGED,
-    payload: value
+    payload: value,
   };
 };
-export const changeRepeatPasswordRegister = value => {
+export const changeRepeatPasswordRegister = (value) => {
   return {
     type: REPEAT_PASSWORD_CHANGED,
-    payload: value
+    payload: value,
   };
 };
 
 export const setLoadingFalse = () => {
   return {
-    type: SET_LOADING_FALSE
+    type: SET_LOADING_FALSE,
   };
 };
 
-export const loginUser = (mobileNUmber, password) => {
-  return dispatch => {
+export const loginUser = (mobileNUmber, password, users) => {
+  return (dispatch) => {
     if (mobileNUmber == "" || password == "") {
       showAlertPopUpOnOtherAction(
         "Login",
@@ -68,14 +69,24 @@ export const loginUser = (mobileNUmber, password) => {
       );
       return;
     }
+    let userFound = false;
     dispatch({
       type: SET_LOADING_MESSAGE,
-      payload: "Logging in..."
+      payload: "Logging in...",
     });
     setTimeout(() => {
-      dispatch({
-        type: SET_LOGGED_IN_TRUE
+      users.map((item) => {
+        if (item.mobileNumber == mobileNUmber && item.password == password) {
+          userFound = true;
+        }
       });
+      if (userFound) {
+        dispatch({
+          type: SET_LOGGED_IN_TRUE,
+        });
+      } else {
+        showAlertPopUpOnOtherAction("User", "User not found...", dispatch);
+      }
     }, 1000);
   };
 };
@@ -83,9 +94,10 @@ export const registerUser = (
   fullName,
   mobileNumber,
   password,
-  repeatPassword
+  repeatPassword,
+  users
 ) => {
-  return dispatch => {
+  return (dispatch) => {
     if (
       fullName == "" ||
       mobileNumber == "" ||
@@ -105,50 +117,61 @@ export const registerUser = (
     }
     dispatch({
       type: SET_LOADING_MESSAGE,
-      payload: "Registering..."
+      payload: "Registering...",
     });
     setTimeout(() => {
-      RootNavigation.navigate("OtpVerificationScreen");
       dispatch({
-        type: SET_LOADING_FALSE
+        type: SET_LOADING_FALSE,
       });
+      let user = {
+        fullName: fullName,
+        mobileNumber: mobileNumber,
+        password: password,
+      };
+      let list = users;
+
+      var isAlready = false;
+      list.map((item) => {
+        if (item.fullName == fullName) {
+          isAlready = true;
+        }
+      });
+
+      if (isAlready) {
+        showAlertPopUpOnOtherAction("User", "User already available", dispatch);
+      } else {
+        RootNavigation.navigate("LoginScreen");
+
+        list.push(user);
+
+        dispatch({
+          type: SET_NEW_USERS,
+          payload: list,
+        });
+      }
     }, 1000);
   };
 };
 
-export const verifyUser = otp => {
-  return dispatch => {
-    if (otp == "") return;
-    dispatch({
-      type: SET_LOADING_MESSAGE,
-      payload: "verifying..."
-    });
-    setTimeout(() => {
-      RootNavigation.navigate("LoginScreen");
-      dispatch({
-        type: SET_LOADING_FALSE
-      });
-    }, 1000);
-  };
-};
 export const showAlertPopUp = (title, message) => {
-  return dispatch => {
+  return (dispatch) => {
     let alertMessage = { title: title, message: message };
     dispatch({
       type: SHOW_ALERT_POP_UP,
-      payload: alertMessage
+      payload: alertMessage,
     });
   };
 };
 export const showAlertPopUpOnOtherAction = (title, message, dispatch) => {
   let alertMessage = { title: title, message: message };
+  console.log(alertMessage);
   dispatch({
     type: SHOW_ALERT_POP_UP,
-    payload: alertMessage
+    payload: alertMessage,
   });
 };
 export const hideAlertPopUp = () => {
   return {
-    type: HIDE_ALERT_POP_UP
+    type: HIDE_ALERT_POP_UP,
   };
 };

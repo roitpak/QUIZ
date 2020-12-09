@@ -11,16 +11,14 @@ import {
   Linking,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { connect } from "react-redux";
-import { MAIL, KEY, CURVE2 } from "../../res/image";
 import Colors from "../../res/strings/Colors";
-import FormInput from "../../components/common/FormInput";
 import BoxFormInput from "../../components/common/BoxFormInput";
 import LargeButton from "../../components/common/LargeButton";
 import {
@@ -31,7 +29,8 @@ import {
   changePasswordRegister,
   changeRepeatPasswordRegister,
   registerUser,
-  setLoadingFalse
+  setLoadingFalse,
+  showAlertPopUp,
 } from "../../redux/actions";
 import { HORIZONTAL_MARGIN } from "../../configs/StylesConstants";
 import CustomRadioButton from "../../components/FormInput/CustomRadioButton";
@@ -44,7 +43,7 @@ class WelcomeScreen extends Component {
   componentDidMount() {
     this.props.setLoadingFalse();
     //when the  component gets 'didfocus' it will get notification again
-    this.props.navigation.addListener("didFocus", payload => {
+    this.props.navigation.addListener("didFocus", (payload) => {
       // this.props.userLogout();
       // return;
       //payload will not be used
@@ -56,14 +55,20 @@ class WelcomeScreen extends Component {
       fullNameRegister,
       mobileNumberRegister,
       passwordRegister,
-      repeatPasswordRegister
+      repeatPasswordRegister,
     } = this.props;
     if (this.state.acceptBoolean) {
       this.props.registerUser(
         fullNameRegister,
         mobileNumberRegister,
         passwordRegister,
-        repeatPasswordRegister
+        repeatPasswordRegister,
+        this.props.users
+      );
+    } else {
+      this.props.showAlertPopUp(
+        "Terms",
+        "Cannot continue without accepting terms "
       );
     }
     // this.props.loginUser(this.props.username, this.props.password);
@@ -105,7 +110,7 @@ class WelcomeScreen extends Component {
             <Text style={styles.inputHeading}>Full Name</Text>
             <BoxFormInput
               value={this.props.fullNameRegister}
-              onChangeText={value => this.props.changeFullNameRegister(value)}
+              onChangeText={(value) => this.props.changeFullNameRegister(value)}
               returnKeyType={"next"}
               onSubmitEditing={() => {
                 this.secondTextInput.focus();
@@ -117,9 +122,9 @@ class WelcomeScreen extends Component {
             <Text style={styles.inputHeading}>Mobile Number</Text>
             <BoxFormInput
               value={this.props.mobileNumberRegister}
-              onChangeText={value => this.props.changeNumberRegister(value)}
+              onChangeText={(value) => this.props.changeNumberRegister(value)}
               returnKeyType={"next"}
-              ref={input => {
+              ref={(input) => {
                 this.secondTextInput = input;
               }}
               keyboardType={"phone-pad"}
@@ -133,9 +138,9 @@ class WelcomeScreen extends Component {
             <BoxFormInput
               secureTextEntry
               value={this.props.passwordRegister}
-              onChangeText={value => this.props.changePasswordRegister(value)}
+              onChangeText={(value) => this.props.changePasswordRegister(value)}
               returnKeyType={"next"}
-              ref={input => {
+              ref={(input) => {
                 this.secondTextInput2 = input;
               }}
               textContentType="newPassword"
@@ -150,10 +155,10 @@ class WelcomeScreen extends Component {
             <BoxFormInput
               secureTextEntry
               value={this.props.repeatPasswordRegister}
-              onChangeText={value =>
+              onChangeText={(value) =>
                 this.props.changeRepeatPasswordRegister(value)
               }
-              ref={input => {
+              ref={(input) => {
                 this.secondTextInput3 = input;
               }}
               textContentType="newPassword"
@@ -165,7 +170,7 @@ class WelcomeScreen extends Component {
               selected={this.state.acceptBoolean}
               onClick={() =>
                 this.setState({
-                  acceptBoolean: !this.state.acceptBoolean
+                  acceptBoolean: !this.state.acceptBoolean,
                 })
               }
             />
@@ -211,51 +216,52 @@ const styles = StyleSheet.create({
   welcome: {
     // color: Colors.app_color,
     fontSize: hp("4%"),
-    marginTop: hp("10%")
+    marginTop: hp("10%"),
   },
   signTo: {
     // color: Colors.light_color,
     fontSize: hp("2.5%"),
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   subHeading: {
     fontSize: hp("1.75%"),
     marginTop: 5,
     color: Colors.dark_gray,
-    marginBottom: 30
+    marginBottom: 30,
   },
   inputField: {
-    marginBottom: 25
+    marginBottom: 25,
   },
   inputHeading: {
     color: Colors.darkest_gray,
     marginBottom: 10,
-    fontSize: 14
+    fontSize: 14,
   },
   buttonMaster: {
     width: "100%",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   acceptView: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 25
+    marginBottom: 25,
   },
   acceptTextStyle: {
     fontSize: 12,
-    color: Colors.dark_gray
+    color: Colors.dark_gray,
   },
   acceptTextStyleHighlighted: {
     fontSize: 13,
-    color: Colors.app_color
+    color: Colors.app_color,
   },
   loginView: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 25
-  }
+    marginTop: 25,
+    marginBottom: 20,
+  },
 });
 
 const mapStateToProps = ({ main }) => {
@@ -265,7 +271,8 @@ const mapStateToProps = ({ main }) => {
     fullNameRegister,
     mobileNumberRegister,
     passwordRegister,
-    repeatPasswordRegister
+    repeatPasswordRegister,
+    users,
   } = main;
   return {
     password,
@@ -273,7 +280,8 @@ const mapStateToProps = ({ main }) => {
     fullNameRegister,
     mobileNumberRegister,
     passwordRegister,
-    repeatPasswordRegister
+    repeatPasswordRegister,
+    users,
   };
 };
 export default connect(mapStateToProps, {
@@ -284,5 +292,6 @@ export default connect(mapStateToProps, {
   changePasswordRegister,
   changeRepeatPasswordRegister,
   registerUser,
-  setLoadingFalse
+  setLoadingFalse,
+  showAlertPopUp,
 })(WelcomeScreen);

@@ -1,5 +1,4 @@
-import AppStrings from "./AppStrings";
-import Fonts from "./Fonts";
+import AppStrings from "./appStrings";
 import Colors from "./Colors";
 
-export { Colors, Fonts, AppStrings };
+export { Colors, AppStrings };

@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 import MainScreen from "./src/views/MainScreen";
 
 const persistConfig = {
-  key: "1§å",
+  key: "v1",
   storage: AsyncStorage
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

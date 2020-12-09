@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "Lok Sewa Learning App",
-    "slug": "loksewalearningapp",
+    "name": "Alpha beta theta Quiz app",
+    "slug": "alphabetathetaquizapp",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "37.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/res/image/icon1.png",
     "splash": {
-      "image": "./src/res/image/splash123.png",
+      "image": "./src/res/image/alphabeta.png",
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
@@ -19,10 +19,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.self.loksewalearningapp"
+      "bundleIdentifier": "com.self.alphabetatheta"
     },
     "android": {
-      "package": "com.self.loksewalearningapp"
+      "package": "com.self.alphabetatheta"
     },
     "packagerOpts": {
       "config": "metro.config.js"

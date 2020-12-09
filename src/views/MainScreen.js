@@ -9,12 +9,12 @@ import {
   Alert,
   Image,
   Button,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 // import { LoginNavigation } from "../navigation/AppNavigator";
 import { TouchableHighlight } from "react-native-gesture-handler";
@@ -27,25 +27,20 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem
+  DrawerItem,
 } from "@react-navigation/drawer";
 import {
   NavigationContainer,
   DefaultTheme,
-  DarkTheme
+  DarkTheme,
 } from "@react-navigation/native";
 
 import WelcomeScreen from "./Login/WelcomeScreen";
 import LoginScreen from "./Login/LoginScreen";
-import OtpVerificationScreen from "./Login/OtpVerificationScreen";
-import ForgotPasswordScreen from "./Login/ForgotPasswordScreen";
-import TestScreen from "./Test/TestScreen";
 import DashboardScreen from "./Dashboard/DashboardScreen";
 import { navigationRef } from "../navigation/RootNavigation";
-import { CAMERA } from "../res/image";
 import RootNavigation from "../navigation/RootNavigation";
 import { useSafeArea } from "react-native-safe-area-context";
-import CustomDrawerContent from "../components/Dashboard/CustomDrawerContent";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -54,17 +49,14 @@ const MyTheme = {
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.app_color,
-    background: "white"
-  }
+    background: "white",
+  },
 };
 function DrawerScreens() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Dashboard"
-      drawerContent={props => <CustomDrawerContent {...props} />}
-    >
-      <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-    </Drawer.Navigator>
+    <Stack.Navigator initialRouteName="Dashboard" headerMode="none">
+      <Stack.Screen name="Dashboard" component={DashboardScreen} />
+    </Stack.Navigator>
   );
 }
 
@@ -72,7 +64,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refreshing: true //component will start with refreshng state
+      refreshing: true, //component will start with refreshng state
     };
   }
   componentDidMount() {}
@@ -82,14 +74,6 @@ class Login extends Component {
         <Stack.Navigator initialRouteName="WelcomeScreen" headerMode="none">
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen
-            name="OtpVerificationScreen"
-            component={OtpVerificationScreen}
-          />
-          <Stack.Screen
-            name="ForgotPasswordScreen"
-            component={ForgotPasswordScreen}
-          />
         </Stack.Navigator>
       );
     } else {
@@ -100,15 +84,6 @@ class Login extends Component {
         </Stack.Navigator>
       );
     }
-    //  else {
-    //   return (
-    //     <FormNavigation
-    //       ref={navigatorRef => {
-    //         NavigationService.setTopLevelNavigator(navigatorRef);
-    //       }}
-    //     />
-    //   );
-    // }
   }
   render() {
     // const { navigation } = this.props;
@@ -151,13 +126,13 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   modalBox: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
   },
   box: {
     height: 80,
@@ -168,7 +143,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     borderRadius: 10,
-    justifyContent: "space-around"
+    justifyContent: "space-around",
     // padding: 10
   },
   box2: {
@@ -181,48 +156,29 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "space-around",
     padding: 10,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   loadingText: {
     fontSize: 14,
-    color: "grey"
+    color: "grey",
   },
   loginText: {
     fontSize: 15,
     color: Colors.app_color,
-    alignSelf: "flex-end"
-  }
+    alignSelf: "flex-end",
+  },
 });
 
 const mapStateToProps = ({ main }) => {
-  const { loading, loadingMessage, showAlert, loggedIn } = main;
+  const { loading, loadingMessage, showAlert, loggedIn, users } = main;
   return {
     loading,
     loadingMessage,
     showAlert,
-    loggedIn
+    loggedIn,
+    users,
   };
 };
 export default connect(mapStateToProps, {
-  userLogout
+  userLogout,
 })(Login);
-{
-  /* <TouchableOpacity
-style={{ position: "absolute", top: 100, left: 100 }}
-onPress={() =>
-  this.props.showNotificationUpFront({
-    type: 1,
-    // messageData: {
-    //   sender_name: "test name",
-    //   content: "hello world",
-    //   sender_id: 1,
-    //   sender_image:
-    //     "http://10.13.210.34:8005/uploads/employees/thumb/1579768630_j6BSJ_1b4b56321093aaf96fc471f700e3f646.jpg"
-    // }
-    messageData: { body: "test" }
-  })
-}
->
-<Text>Touch me</Text>
-</TouchableOpacity> */
-}

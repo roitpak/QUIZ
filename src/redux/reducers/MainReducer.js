@@ -10,7 +10,8 @@ import {
   SHOW_ALERT_POP_UP,
   HIDE_ALERT_POP_UP,
   SET_LOGGED_IN_TRUE,
-  LOG_USER_OUT
+  LOG_USER_OUT,
+  SET_NEW_USERS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -28,7 +29,9 @@ const INITIAL_STATE = {
   showAlert: false,
   alertMessage: "",
 
-  loggedIn: false
+  loggedIn: false,
+
+  users: [],
   // I am here guys
 };
 
@@ -37,70 +40,76 @@ export default (state = INITIAL_STATE, action) => {
     case USER_NAME_CHANGED:
       return {
         ...state,
-        username: action.payload
+        username: action.payload,
       };
     case USER_PASSWORD_CHANGED:
       return {
         ...state,
-        password: action.payload
+        password: action.payload,
       };
     case FULL_NAME_REGISTER_CHANGED:
       return {
         ...state,
-        fullNameRegister: action.payload
+        fullNameRegister: action.payload,
       };
     case MOBILE_NUMBER_REGISTER_CHANGED:
       return {
         ...state,
-        mobileNumberRegister: action.payload
+        mobileNumberRegister: action.payload,
       };
     case PASSWORD_REGISTER_CHANGED:
       return {
         ...state,
-        passwordRegister: action.payload
+        passwordRegister: action.payload,
       };
     case REPEAT_PASSWORD_CHANGED:
       return {
         ...state,
-        repeatPasswordRegister: action.payload
+        repeatPasswordRegister: action.payload,
       };
     case SET_LOADING_MESSAGE:
       return {
         ...state,
         loading: true,
-        loadingMessage: action.payload
+        loadingMessage: action.payload,
       };
     case SET_LOADING_FALSE:
       return {
         ...state,
         loadingMessage: "",
-        loading: false
+        loading: false,
       };
     case SHOW_ALERT_POP_UP:
       return {
         ...state,
         showAlert: true,
-        alertMessage: action.payload
+        loading: false,
+        alertMessage: action.payload,
       };
     case HIDE_ALERT_POP_UP:
       return {
         ...state,
         showAlert: false,
-        alertMessage: { title: "", message: "" }
+        alertMessage: { title: "", message: "" },
       };
     case SET_LOGGED_IN_TRUE:
       return {
         ...state,
         loggedIn: true,
         loading: false,
-        loadingMessage: ""
+        loadingMessage: "",
       };
     case LOG_USER_OUT:
       return {
         ...state,
         loggedIn: false,
         loading: false,
-        loadingMessage: ""
+        loadingMessage: "",
+      };
+    case SET_NEW_USERS:
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       return state;
