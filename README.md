@@ -1,4 +1,6 @@
 # QUIZ
+This Project was developed as a task. First user need to create an account, which is saved locally. And later can be logged in from login page.
+
 
 Node js is required to run this project
 
