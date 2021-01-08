@@ -8,11 +8,11 @@ run command
 
 > npm install -g expo-cli
 
-cd QUIZ
+> cd QUIZ
 
-npm install 
+> npm install 
 
-expo start
+> expo start
 
 this will start a packager and generate QR code.
 Install Expo app from play store. 
