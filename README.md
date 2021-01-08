@@ -6,7 +6,7 @@ Node js is required to run this project
 
 run command
 
-npm install -g expo-cli
+> npm install -g expo-cli
 
 cd QUIZ
 
